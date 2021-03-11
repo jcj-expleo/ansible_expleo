@@ -36,7 +36,7 @@
         
     - name: Docker apt repository
       apt_repository:
-        repo: deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian buster stable
+        repo: deb https://download.docker.com/linux/debian buster stable
         state: present
         
     - name: Installation Docker
@@ -48,4 +48,16 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
+        
+    - name: Install Docker Module for Python
+      apt:
+        name: python-docker
+        state: present
+        
+    - name: Install an apache2 container
+      docker_container:
+        name: apache2
+        image: httpd
+        ports:
+          - "8000:80"
 ...
